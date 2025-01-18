@@ -1,7 +1,8 @@
-function App() {
+import Chai from "./Chai.jsx"
 
+function App() {
   return (
-    <h1>Hello World, how is the chai?</h1>
+    <Chai/>
   )
 }
 
