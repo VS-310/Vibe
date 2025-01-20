@@ -1,6 +1,7 @@
 function Chai() {
+    const emoji = "😊";
     return (
-      <h1>Enjoy your Chai😊</h1>
+      <h1>Enjoy your Chai {emoji}</h1>
     );
 }
   
