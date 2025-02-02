@@ -8,7 +8,7 @@ function App() {
 
   return (
     <UserContextProvider>
-      <h1> Here you access the resources </h1>
+      <h1> Here you can access the resources </h1>
       <Login/>
       <Profile/>
     </UserContextProvider>
