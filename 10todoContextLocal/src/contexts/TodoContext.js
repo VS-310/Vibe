@@ -7,7 +7,7 @@ export const TodoContext = createContext({
         // { id: 3, text: "Learn GraphQL", completed: false},
     ],
     addTodo: (todo) => {},
-    removeTodo: (id, todo) => {},
+    updateTodo: (id, todo) => {},
     deleteTodo: (id) => {},
     toggleTodo: (id) => {},
 });
