@@ -21,9 +21,9 @@ export const todoSlice = createSlice({
         },
 
         updateTodo: (state, action) => {
-            const todo = state.todos.map((prevTodo) => (
+            state.todos = state.todos.map((prevTodo) => 
                 prevTodo.id === action.payload.id ? {...prevTodo, text: action.payload.text} : prevTodo
-            ));
+            );
         },
 
         removeTodo: (state, action) => {
