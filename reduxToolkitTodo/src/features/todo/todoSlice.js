@@ -1,8 +1,9 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+//nano id for creation of random id generator
 
 const initialState = {
     todos: [
-        {id: 1, text: 'Learn Redux'},
+        {id: 1, text: 'Time to learn Redux Toolkit'},
     ],
 }
 
