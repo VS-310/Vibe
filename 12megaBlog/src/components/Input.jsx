@@ -28,15 +28,4 @@ const Input = React.forwardRef(
     }
 )
 
-function Input({
-
-}) {
-    const id = useId();
-  return (
-    <div>
-      Input
-    </div>
-  )
-}
-
 export default Input

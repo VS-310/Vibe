@@ -5,33 +5,32 @@ import appwriteService from '../../appwrite/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-export default function PostForm() {
+export default function PostForm({ post }) {
     const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
         defaultValues: {
             title: post?.title||'',
-            slug: post?.slug||'',
+            slug: post?.$id||'',
             content: post?.content||'',
             status: post?.status||'active',
         },
     });
 
     const navigate = useNavigate();
-    const userData = useSelector(state => state.user.userData)
+    const userData = useSelector(state => state.auth.userData)
 
     const submit = async (data) => {
         if(post){
-            const file = data.image[0] ? appwriteService.uploadFile(data.image[0]) : null
+            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
             
             if(file){
                 appwriteService.deleteFile(post.featuredImage);
             }
 
-            const dbPost = await appwriteService.updatePost(
-                post.$id, {
-                    ...data,
-                    featuredImage: file ? file.$id : undefined,
-                }
-            );
+            const dbPost = await appwriteService.updatePost(post.$id, {
+                ...data,
+                featuredImage: file ? file.$id : undefined,
+            });
+
             if(dbPost) {
                 navigate(`/post/${dbPost.$id}`)
             }
@@ -51,7 +50,6 @@ export default function PostForm() {
                 }
             }
         }
-
     }
 
     const slugTransform = useCallback((value) => {
@@ -72,10 +70,8 @@ export default function PostForm() {
             }
         });
 
-        return () => {
-            subscription.unsubscribe();
-        }
-    },[watch, slugTransform, setValue]);
+        return () => subscription.unsubscribe();
+    }, [watch, slugTransform, setValue]);
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -97,7 +93,7 @@ export default function PostForm() {
                 />
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
-            
+
             <div className="w-1/3 px-2">
                 <Input
                     label="Featured Image :"
@@ -121,7 +117,7 @@ export default function PostForm() {
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full cursor-pointer">
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

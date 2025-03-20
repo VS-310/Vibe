@@ -26,8 +26,6 @@ export class Service{
                     featuredImage,
                     status,
                     userId,
-                    createdAt: new Date().getTime(),
-                    updatedAt: new Date().getTime()
                 }
             )
         } catch (error) {
@@ -46,7 +44,6 @@ export class Service{
                     content,
                     featuredImage,
                     status,
-                    updatedAt: new Date().getTime()
                 }
             )
         } catch (error) {
@@ -114,18 +111,18 @@ export class Service{
             )
             return true;
         } catch (error) {
-            console.log("Appwrite Service :: deleteFile :: error ",error);
+            console.log(`Appwrite Service :: deleteFile :: error :: [${new Date().toLocaleString()}]`, error);
             return false;
         }
     }
 
-    getPreview(fileId){
+    getFilePreview(fileId) {
         return this.bucket.getFilePreview(
             conf.appwriteBucketId,
-            fileId
-        )
+            fileId,
+        );
     }
 }
 
 const service = new Service();
-export default Service;
+export default service;
